@@ -1,0 +1,1021 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../1-Setting-Up/">
+      
+      
+        <link rel="next" href="../3-Making-Pong/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>2. The Game Loop - Google Developer Groups IAU - Game Development Track</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-the-game-loop" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Google Developer Groups IAU - Game Development Track" class="md-header__button md-logo" aria-label="Google Developer Groups IAU - Game Development Track" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Google Developer Groups IAU - Game Development Track
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. The Game Loop
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  Week 1. Making Your First Game
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Google Developer Groups IAU - Game Development Track" class="md-nav__button md-logo" aria-label="Google Developer Groups IAU - Game Development Track" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Google Developer Groups IAU - Game Development Track
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Week 1. Making Your First Game
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Week 1. Making Your First Game
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1-Setting-Up/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    2. The Game Loop
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    2. The Game Loop
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-game-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Game Loop
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rendering-graphics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rendering Graphics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coordinate-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coordinate Systems
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#moving-the-square" class="md-nav__link">
+    <span class="md-ellipsis">
+      Moving the Square
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continuous-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous Movement
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delta-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delta Time
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3-Making-Pong/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Making Pong
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Resources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Resources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-game-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Game Loop
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rendering-graphics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rendering Graphics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coordinate-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Coordinate Systems
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#moving-the-square" class="md-nav__link">
+    <span class="md-ellipsis">
+      Moving the Square
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continuous-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous Movement
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delta-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delta Time
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="2-the-game-loop">2. The Game Loop</h1>
+<p>In the previous section of this tutorial, we setup our projects dependencies and build "system". Now, we'll actually get to programming the game itself, starting with the game loop.</p>
+<h2 id="the-game-loop">The Game Loop</h2>
+<p>In our earlier sections, we discussed the basic idea of the game loop. Now we get to see what that looks like in code. Once we remove our <code>std::cout</code> lines, this is what our code looks like now:</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;raylib.h&gt;</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">InitWindow</span><span class="p">(</span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="mi">720</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Pong&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>We can see that after the <code>InitWindow</code> call, there's no other code to execute, and the program returns. In order to stop this and actually have a program running, we need to create a loop. Theoretically, a <code>while (true)</code> loop could suffice, however in Raylib, there's a function called <code>WindowShouldClose()</code> that returns a boolean. We'll use this boolean as the condition for our loop instead, such that if the return value is <code>false</code>, then we know that nothing has been done to make the window close, and our program should continue executing.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">InitWindow</span><span class="p">(</span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="mi">720</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Pong&quot;</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">WindowShouldClose</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>The difference between this approach and the <code>while (true)</code> one is that for this one, certain events can take place that will actually effect the condition. For example, if we press the big red "<strong>X</strong>" on the top right corner of the window, this variable will switch to true, and our program will close. Another condition that will by default effect this variable is if we press the escape key. Pressing escape will shutdown our program by default.</p>
+<p>If we try to run it now, we get a window! However, it's unresponsive.</p>
+<p><img alt="" src="../Images_1/i1.png" /></p>
+<p>The reason for this is that throughout the loop that's repeating itself, our program is not interacting with the operating system at all. Raylib provides functions that do this directly, such as <code>PollInputEvents()</code>, this is for advanced users however. In Raylib, the polling of OS events happens in tandem with the rendering functions, so if we just create a simple rendering loop this problem will resolve itself just fine.</p>
+<h2 id="rendering-graphics">Rendering Graphics</h2>
+<p>The graphics functions mostly operate in their own "phase" of sorts. The beginning and end of this phase are marked by the <code>BeginDrawing()</code> and <code>EndDrawing()</code> functions. If we place them in order in our loop, our program will become responsive.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">WindowShouldClose</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">BeginDrawing</span><span class="p">();</span>
+<span class="w">        </span><span class="c1">// All of our graphics stuff happens here!</span>
+<span class="w">        </span><span class="n">EndDrawing</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>If we run it now, we'll get this:</p>
+<p><img alt="" src="../Images_1/i2.png" /></p>
+<p>We finally have a fully working, proper, honest window on our hands. We can move it around, minimize it, and even close it. One thing we can't do yet is resize it, but that's intentional, to make the process of actually making our game simpler.</p>
+<p>Let's try actually drawing something on the screen for real this time. In Raylib, there's a function called <code>DrawRectangle()</code> that takes in 5 arguments. <code>posX, posY, width, height, color</code>. In both Raylib and Godot, the origin of a rectangle is the top-left corner, and the rectangle expands rightwards and downwards according to the width and height.</p>
+<p><img alt="" src="../Images_1/i3.png" /></p>
+<p>So, in our code, let's just a draw a red square with the origin points (0, 0) and a 40x40 size.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">WindowShouldClose</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">BeginDrawing</span><span class="p">();</span>
+<span class="w">        </span><span class="n">DrawRectangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="n">RED</span><span class="p">);</span>
+<span class="w">        </span><span class="n">EndDrawing</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>If we run it now, we'll see a red square at the top left corner of our screen:</p>
+<p><img alt="" src="../Images_1/i4.png" /></p>
+<p>The reason the square is showing up on the top left corner of the screen is because right now, the origin of the coordinate system is mapped to the top-left corner. This would be a good time to talk about coordinate systems.</p>
+<h2 id="coordinate-systems">Coordinate Systems</h2>
+<p>Maths are a very common element of video game programming that you need to intuitively understand if you want to confidently develop your ideas into games. The maths required in game development is not that difficult or complicated, and in general you'll find you'll get better at it the more you do it.</p>
+<p>The first thing you should understand is coordinate systems. You might be familiar with this setup:<img alt="" src="../Images_1/i5.png" /></p>
+<p>You should all be familiar with this from high school. You have an X-axis and a Y-axis. The grid here represents all the points that you can represent in two-dimensions. Each square being one unit, right is positive on the X-axis, left is negative... basically no different from when you remember it.</p>
+<p>Well, no. Actually there is one difference between the systems in Raylib and Godot and from the coordinate systems you're all familiar with. In Raylib and Godot, up is <strong>negative</strong> on the Y-axis, and down is positive. So if we filled out the numbers it would look something like this.</p>
+<p><img alt="" src="../Images_1/i6.png" />Moreover, the origin point (0, 0) is in the center. But in our current setup (in-game), the origin point is in the top left, and the width and height of the grid correspond to the screen width and height that we set. In other words, each unit in the grid is 1 pixel.</p>
+<p><img alt="" src="../Images_1/i7.png" /></p>
+<p>In this illustration, each grid square is obviously not one pixel because it's not scaled correctly, but this is just an example. When you look at it, and keeping in mind that rectangle coordinate systems follow the same pattern of having the origin at the top-left, it becomes clear why our call to the <code>DrawRectangle()</code> function caused it to appear where it did. (0, 0) is the top-left, and the square itself is goes 40 pixels to the right and 40 pixels down from the origin. If we stretched the <strong>width</strong> to 1280, same as the screen width, then it will appear as a big red strip on covering the top-most part of our screen.</p>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="n">DrawRectangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="n">RED</span><span class="p">);</span>
+</code></pre></div>
+<p><img alt="" src="../Images_1/i8.png" /></p>
+<p>Same with the height.</p>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="n">DrawRectangle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">720</span><span class="p">,</span><span class="w"> </span><span class="n">RED</span><span class="p">);</span>
+</code></pre></div>
+<p><img alt="" src="../Images_1/i9.png" /></p>
+<p>Let's try placing the square right in the center of our screen. We know the right side is 1280, and the left side is 0, so logically the middle is between those two points , <span class="arithmatex">\({(0+1280)\over{2}}=640\)</span>. Likewise with the height, <span class="arithmatex">\({(0+720)\over{2}}=360\)</span>. So lets try placing our 40x40 square there.</p>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="n">DrawRectangle</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span><span class="w"> </span><span class="mi">360</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="n">RED</span><span class="p">);</span>
+</code></pre></div>
+<p><img alt="" src="../Images_1/i10.png" /></p>
+<p>And there it is! You'll notice that it's not <em>exactly</em> in the center, rather, the <em>top-left corner</em> of the square is in the center. If we want the center of the square to be in the center of the screen we'd have to displace it up and to the left 20 units. But that's not necessary, what's important now is that you understand this concept of the coordinate system because it'll be really important for your game development journey.</p>
+<h2 id="moving-the-square">Moving the Square</h2>
+<p>Having a square appear where we want it to be is cool and all, but it'd be nicer if we could actually move the square. Moving the square is really as simple as just moving the position of the square <code>posX, posY</code>. But how do we actually do that? Well first, we must take input from the user.</p>
+<p>Raylib has several functions for receiving input from the user, but the ones we're interested in right now are <code>IsKeyPressed()</code> <code>IsKeyDown()</code> and <code>IsKeyReleased()</code>. Each of these functions takes in a keycode as an argument, and returns a boolean.</p>
+<ul>
+<li>
+<p><code>IsKeyPressed()</code> returns true if the key was <em>just</em> pressed at that moment.</p>
+</li>
+<li>
+<p><code>IsKeyDown()</code> returns true if the key is held down at <em>any</em> moment.</p>
+</li>
+<li>
+<p><code>IsKeyReleased()</code>returns true if the key was <em>just</em> released at that moment.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In Godot — the engine we'll be using — the functions for checking input are mostly the same; there are distinctions between having <em>just</em> pressed a key, <em>holding</em> a key down, and having <em>just</em> released a key.</p>
+</div>
+<p>Let's write something simple for now, let's make a program that changes the color of our square to green if the user pressed the space bar:</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">Color</span><span class="w"> </span><span class="n">square_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RED</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">WindowShouldClose</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyPressed</span><span class="p">(</span><span class="n">KEY_SPACE</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">square_color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GREEN</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">BeginDrawing</span><span class="p">();</span>
+<span class="w">        </span><span class="n">DrawRectangle</span><span class="p">(</span><span class="mi">640</span><span class="p">,</span><span class="w"> </span><span class="mi">360</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="n">square_color</span><span class="p">);</span>
+<span class="w">        </span><span class="n">EndDrawing</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>If we run the program now, the color of the square will be initially red:</p>
+<p><img alt="" src="../Images_1/i11.png" /></p>
+<p>But if we press space...</p>
+<p><img alt="" src="../Images_1/i12.png" /></p>
+<p>It turns green! This is the first example you'll see of non-graphics state being rendered in visual form. The <code>square_color</code> variable is affected by user input, and it's also used in the drawing phase of our program. If we want our square to move according to user input, we need to do something similar but this time with the player's position.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">Vector2</span><span class="w"> </span><span class="n">player_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">640</span><span class="p">,</span><span class="w"> </span><span class="mi">360</span><span class="w"> </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">WindowShouldClose</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyPressed</span><span class="p">(</span><span class="n">KEY_RIGHT</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">40</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">BeginDrawing</span><span class="p">();</span>
+<span class="w">        </span><span class="n">DrawRectangle</span><span class="p">(</span><span class="n">player_position</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">player_position</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="n">RED</span><span class="p">);</span>
+<span class="w">        </span><span class="n">EndDrawing</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>What we've done here is used a <code>Vector2</code> struct, which is just a container for 2 floats <code>x</code> and <code>y</code>, to represent the player's position. We're then taking the right arrow key being pressed (KEY_RIGHT) as a sign to move the player 40 units to the right. Finally, in the <code>DrawRectangle()</code> call, we're substituting our initial constant values (640, 360) for the <code>player_position</code> variable. If all goes well, when we press the right arrow key, the player should move to the right.</p>
+<details class="note">
+<summary>About Vectors...</summary>
+<p>In game programming, the idea of a "vector" is quite versatile.
+From a sheer programming perspective, it's just a container for floats representing coordinates in a certain space, they can be two coordinates <code>x</code> and <code>y</code>, denoting a <code>Vector2</code>. Or they can be three coordinates, <code>x</code>, <code>y</code> and <code>z</code>, denoting a <code>Vector3</code>.
+In practice however, a vector can represent many things, they are most commonly used to represent <strong>points</strong> in a space, or an actual <strong>direction</strong> and <strong>magnitude</strong> in the conventional physics definition of a vector.</p>
+<p>Both concepts are used extensively in game programming, and are both represented with the same data type, <code>Vector</code>.
+To learn more about this topic, we recommend following <a href="https://www.youtube.com/watch?v=sKCF8A3XGxQ&amp;list=PLW3Zl3wyJwWOpdhYedlD-yCB7WQoHf-My">this YouTube series</a> on math for game developers. It's highly accessible and valuable.</p>
+</details>
+<p><img alt="" src="../Images_1/i13.png" /></p>
+<p>Well, that's strange! The square seems to have stretched 40 units to the right and has become a rectangle. Did we make a mistake? No. Well, not in the state code anyways. </p>
+<p>You see, when rendering graphics, we need to make sure we're rendering the current state <em>exclusively</em>, and not the previous frames' state. In here, we have the state <em>before</em> we pressed right, and the state <em>after</em> pressing the right arrow key. Because we're not clearing the screen of the original state's visual output, the new visual output and old ones have been merged together. A combination of Frame 1 + Frame 2. The current order of rendering looks like this:</p>
+<ul>
+<li>
+<p>Draw red square at <code>(640, 360)</code></p>
+</li>
+<li>
+<p>Present to the screen</p>
+</li>
+<li>
+<p><strong>== NEW FRAME ==</strong></p>
+</li>
+<li>
+<p>Draw red square at <code>(640, 400)</code></p>
+</li>
+<li>
+<p>Present to the screen</p>
+</li>
+</ul>
+<p>All that we need to do to fix this is to just clear the screen of whatever graphics we rendered to it before we render the new graphics. In Raylib, the function for this is called <code>ClearBackground()</code>. Let's choose black for now as our clear color.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">Vector2</span><span class="w"> </span><span class="n">player_position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">640</span><span class="p">,</span><span class="w"> </span><span class="mi">360</span><span class="w"> </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">WindowShouldClose</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyPressed</span><span class="p">(</span><span class="n">KEY_RIGHT</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">40</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">ClearBackground</span><span class="p">(</span><span class="n">BLACK</span><span class="p">);</span>
+<span class="w">        </span><span class="n">BeginDrawing</span><span class="p">();</span>
+<span class="w">        </span><span class="n">DrawRectangle</span><span class="p">(</span><span class="n">player_position</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">player_position</span><span class="p">.</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="n">RED</span><span class="p">);</span>
+<span class="w">        </span><span class="n">EndDrawing</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>Now that we're <em>clearing</em> the screen — effectively <strong>erasing</strong> all the contents of it — before we <em>draw</em> in it, our order of rendering looks more like this.</p>
+<ul>
+<li>
+<p>Clear the screen</p>
+</li>
+<li>
+<p>Draw red square at <code>(640, 360)</code></p>
+</li>
+<li>
+<p>Present to the screen</p>
+</li>
+<li>
+<p><strong>== NEW FRAME ==</strong> </p>
+</li>
+<li>
+<p>Clear the screen</p>
+</li>
+<li>
+<p>Draw red square at <code>(640, 400)</code></p>
+</li>
+<li>
+<p>Present to the screen</p>
+</li>
+</ul>
+<p>Let's run it now and move right 3 times.</p>
+<p><img alt="" src="../Images_1/i14.png" /></p>
+<p>That's more like it. Now, let's try duplicating the logic for this across all 4 directions.</p>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyPressed</span><span class="p">(</span><span class="n">KEY_RIGHT</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">40</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyPressed</span><span class="p">(</span><span class="n">KEY_LEFT</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">40</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyPressed</span><span class="p">(</span><span class="n">KEY_UP</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">40</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyPressed</span><span class="p">(</span><span class="n">KEY_DOWN</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">40</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+</code></pre></div>
+<p>If we run it:</p>
+<p><img alt="" src="../Images_1/g1.gif" /></p>
+<p>It finally works! We have our own player of sorts now.</p>
+<h2 id="continuous-movement">Continuous Movement</h2>
+<p>You'll notice that currently our movement is discrete. We move 40 units, every time we press an arrow key. But we'd rather have our movement be <strong>continuous</strong>; we don't want to move just <em>once</em> when we <em>press</em> a key, we want to move <strong>continuously</strong> as we're <strong>holding</strong> a key down.</p>
+<p>To do this, we just need to change the function we're using <code>IsKeyPressed()</code> to the more appropriate <code>IsKeyDown()</code> instead, which will return <code>true</code> as we're holding a key down.</p>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyDown</span><span class="p">(</span><span class="n">KEY_RIGHT</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">40</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyDown</span><span class="p">(</span><span class="n">KEY_LEFT</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">40</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyDown</span><span class="p">(</span><span class="n">KEY_UP</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">40</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyDown</span><span class="p">(</span><span class="n">KEY_DOWN</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">40</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+</code></pre></div>
+<p>If we run it now, we can see that it kinda works, but something's off.</p>
+<p><img alt="" src="../Images_2/g1.gif" /></p>
+<p>In the GIF it's a little choppy, but that's only because it's at 30 fps. Putting that aside, our player is moving way too fast. How come? Well, when we look at the code again, we can see that we're moving 40 pixels at once everytime the player moves, also, we check for input every loop (frame), so if we hold the key down, what this effectively means is we're moving 40 pixels each frame, which is obviously more than we'd want. What we'd like to have instead is to have the player move 40 pixels per <em>second</em>, which is totally different from 40 pixels per frame.</p>
+<p>We know at this point that the amount of times the game loop is executed in one second is known as the frames per second of our game (FPS), the "frame" in this context refers to the visual output to the screen, which is the final part of the game loop if you'd remember. However, we're going to use the term "frame" here to refer to the execution of the game loop in its entirety, and not just the literal visual output on the screen, which is common in game development.</p>
+<p>Since we're doing this movement each frame, it stands to reason that if we increase or decrease the FPS of our game the speed of the movement will follow suit. You can experiment with this and see that it's true.</p>
+<p>We can demonstrate this mathematically. If we add 40 to position per frame @ 60 FPS, we'll have a total displacement of <strong>2400</strong> per second.</p>
+<p><img alt="" src="../Images_1/2d4a4465-b00e-4891-95d3-61bedea55536.png" /></p>
+<p>If we try set our FPS to 120, or just demonstrate this mathematically again, we can see that the total displacement per second changes.</p>
+<p><img alt="" src="../Images_1/f4e698da-ab2d-4d57-b3a5-79109bc1eeb4.png" /></p>
+<p>This is obviously a big problem, since we don't want something like our movement speed to be dependent on the game's FPS, as this can cause undesired and unpredictable behavior, and can give some players advantages over others depending on what FPS their machine can or cannot handle.</p>
+<p>In Raylib, there's a function called <code>SetTargetFPS()</code> to set the FPS for us. By default the target FPS is set to match the current monitor's refresh rate, but for the sake of consistency let's just set the target FPS to 60 before the initialization of our window.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">SetTargetFPS</span><span class="p">(</span><span class="mi">60</span><span class="p">);</span>
+<span class="w">    </span><span class="n">InitWindow</span><span class="p">(</span><span class="mi">1280</span><span class="p">,</span><span class="w"> </span><span class="mi">720</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Pong&quot;</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="delta-time">Delta Time</h2>
+<p>Well now that we know why our player is moving much faster than we'd like, what's the solution? Since the reason for the high speed is because it's correlated to the frames of our game, what we need to do is find some way to <em>decouple</em> our game's logic from the FPS. In order to do this, we need to take the <em>delta time</em> of our game, also known as the <em>frame time</em>, and multiply it by all variables which we want to be <em>per second</em> rather than <em>per frame</em>.</p>
+<p>That's quite a lot to take in, but let's break it down. The delta time (frame time), as you may tell, is just simply the amount of time it takes to execute one frame or loop of our game. If the frames per second tells us how many frames are done per second, this is the complete opposite, it tells us how many seconds it takes to do one frame. We can get the delta time by dividing 1 by the FPS. For 60 FPS, the frame time is 0.01666 seconds, or 16.66 miliseconds, equivalent to <span class="arithmatex">\(1\over60\)</span>.</p>
+<details class="note">
+<summary>Real delta time</summary>
+<p>In real games, the delta time is actually acquired manually, by taking the time (in seconds) at the current frame, and subtracting from the time of the previous frame.</p>
+<p><code>delta_time = current_time - previous_frame_time</code></p>
+</details>
+<p>So what happens when we multiply this number by our time-dependent variables? What happens is the 40 units we wanted to move per second, are in-fact being moved per-frame but at a much slower rate than 40. How much slower? <em>Just</em> slow enough for it to complete 40 units by the time 1 second passes.</p>
+<p>We can illustrate this demonstration again for 60 FPS.</p>
+<p><img alt="" src="../Images_1/8eed3843-4bba-4ed9-9f14-57e998ce5481.png" /></p>
+<p>As you can see, the total displacement per second now is at around 40, which is our desired result. Just as importantly, if we test this on a different FPS like 120, our end result remains the same.</p>
+<p><img alt="" src="../Images_1/ec3428ee-7908-4e87-88dc-e717d0ea4f17.png" /></p>
+<p>We can prove that the total displacement per seconds will always be the same regardless of the current FPS using this method mathematically. If <span class="arithmatex">\(40\)</span> is our desired per second displacement, and we are displacing at a rate of <span class="arithmatex">\(60\)</span> frames per second, multiplying by delta time is the same as dividing <span class="arithmatex">\(40\)</span> by <span class="arithmatex">\(60\)</span>, and we're displacing <span class="arithmatex">\(60\)</span> times in one second so the total displacement in seconds would look like:</p>
+<p><span class="arithmatex">\({40\over60}\times60=40\)</span></p>
+<p>The division by 60 and multiplication by 60 cancel each other out, leaving only 40. This is obviously true for other FPS rates as well.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This solution is not perfect. Games that require a lot of precision such as online games or fighting games need more precise solutions for decoupling FPS and game logic, and we will cover a few of them later on.</p>
+<p>This solution however is good enough for most cases, and it's what we'll be using for now. </p>
+</div>
+<p>In Raylib, the function for acquiring the frame time is simply called <code>GetFrameTime()</code>, let's go ahead and store it first thing in our loop.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">WindowShouldClose</span><span class="p">())</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">delta_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetFrameTime</span><span class="p">();</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>Now let's take all the instances of us translating the player position by 40 units and multiply it by our delta time.</p>
+<div class="highlight"><pre><span></span><code><span class="w">        </span><span class="kt">float</span><span class="w"> </span><span class="n">delta_time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GetFrameTime</span><span class="p">();</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyDown</span><span class="p">(</span><span class="n">KEY_RIGHT</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">40</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">delta_time</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyDown</span><span class="p">(</span><span class="n">KEY_LEFT</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">40</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">delta_time</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyDown</span><span class="p">(</span><span class="n">KEY_UP</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">40</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">delta_time</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IsKeyDown</span><span class="p">(</span><span class="n">KEY_DOWN</span><span class="p">))</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">player_position</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">40</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">delta_time</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+</code></pre></div>
+<p>And let's see what we get:</p>
+<p><img alt="" src="../Images_2/g2.gif" /></p>
+<p>Well it's rather slow, but then again 40 pixels per second isn't that fast to begin with. What's important is that it works! Now that we got that out of the way we can actually begin to work on our game.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/@GDG_IAU" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9zm-24.8 373.8h39.1L151.1 88h-42z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/company/gdg-at-iau" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.select", "content.code.copy", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
