@@ -1,0 +1,1255 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../Nodes-and-Scenes/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Game Engines - Google Developer Groups IAU - Game Development Track</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#game-engines" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Google Developer Groups IAU - Game Development Track" class="md-header__button md-logo" aria-label="Google Developer Groups IAU - Game Development Track" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Google Developer Groups IAU - Game Development Track
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Game Engines
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Week-1.-Making-Your-First-Game/" class="md-tabs__link">
+          
+  
+  Week 1. Making Your First Game
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  Week 2. Intro to Godot
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Google Developer Groups IAU - Game Development Track" class="md-nav__button md-logo" aria-label="Google Developer Groups IAU - Game Development Track" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Google Developer Groups IAU - Game Development Track
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week 1. Making Your First Game
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Week 1. Making Your First Game
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/1-Setting-Up/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/2-The-Game-Loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. The Game Loop
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/3-Making-Pong/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Making Pong
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/Resources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Resources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Week 2. Intro to Godot
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Week 2. Intro to Godot
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Game Engines
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Game Engines
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-game-engines" class="md-nav__link">
+    <span class="md-ellipsis">
+      What are Game Engines?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-godot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Godot?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update Cycle
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assets
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Nodes-and-Scenes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes and Scenes in Godot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Creating-a-Moving-Square/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Creating a Moving Square
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Making-a-Simple-Platformer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Making a Simple Platformer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tasks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    GDScript
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            GDScript
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is GDScript?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Variables-and-Data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variables and Data Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Array/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Array
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/RNG/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random Number Generator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operators and Computation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/If-else/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    If-else Statements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Dictionaries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dictionaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Looping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Looping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-game-engines" class="md-nav__link">
+    <span class="md-ellipsis">
+      What are Game Engines?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-godot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Godot?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entities
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update-cycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update Cycle
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assets
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="game-engines">Game Engines</h1>
+<p>Last week, we built and designed a game of Pong from scratch using Raylib. We learned the fundamentals of game programming, coordinate systems, and how to program game logic. Now, we're going to learn how to make games using <strong>game engines.</strong></p>
+<p>The primary difference between making games from scratch and from engine is that, in engines, you must learn the <strong>systems</strong> the <u>developers of the engine designed</u>, and how you can use those systems to design games of your own.</p>
+<h2 id="what-are-game-engines">What are Game Engines?</h2>
+<p>Game engines, put simply, are technical tools meant to assist developers in creating games <em>without</em> having to build everything from the ground up. As we talked about last week, many video games have common components in <strong>graphics, audio, physics</strong>, and <strong>other components</strong>.</p>
+<p>The purpose of a game engine is to be a <u>generic solution</u> for these problems. "Generic" meaning it tries to solve the problem to work for as many developers to make their games. Obviously, it's not possible for one game engine to solve all problems for all game developers. That's why there are multiple different engines in the industry, and each one tries to solve the <strong>common technical problems (audio, graphics, etc..)</strong> of game development in a way that allows developers to <strong>use that engine</strong> to create <strong><u>certain types</u> of games.</strong></p>
+<p>Within the constrained framework that game engines provide, developers have the freedom to use the systems provided to make their own games.</p>
+<h2 id="why-godot">Why Godot?</h2>
+<p>There are various popular game engines used in the industry. Arguably the biggest three are <strong>Unity, Unreal, and Godot</strong>. For this bootcamp we chose <u>Godot</u>, the reason why is that Godot is one of the <strong>simplest</strong> game engines you can learn to use <strong>quickly</strong>, which makes it a perfect fit for this course. <strong>Unity and Unreal</strong> on the other hand, are more <u>complex</u>, conversely, they take longer to learn.</p>
+<h2 id="entities">Entities</h2>
+<p>Despite the differences between these game engines, there are some things that most if not all game engines have in common. One of them is an <strong>entity system.</strong></p>
+<p>Most engines handle their <u>logic and data</u> encapsulated in units called <strong>"Entities".</strong> Entities — also known as <strong>Game Objects</strong> or <strong>Actors</strong> — are effectively the <strong>building blocks</strong> of the game. They are the <strong>objects</strong> that <u>populate the game world</u>, and each entity has its own <strong>properties/data</strong> and <strong>logic/code</strong>.</p>
+<p>All entities have some shared and common properties. For example, <u>each</u> entity may have:</p>
+<ul>
+<li>
+<p>A <strong>name</strong> and <strong>unique ID</strong></p>
+</li>
+<li>
+<p>A <strong>position</strong> in space (Can be <strong>2D or 3D</strong>)</p>
+</li>
+<li>
+<p>A <strong>place</strong> in a general game <strong>hierarchy</strong> (sometimes called a tree)</p>
+</li>
+<li>
+<p>Some other properties depending on the game engine</p>
+</li>
+</ul>
+<p>We discussed last week the concept of the <strong>Update</strong> function in games. That is the code that is executed on a <em>per-frame</em> basis. When we were making Pong, we had <em>one</em> big update function to handle the logic of the entire game. In game engines, the game is still updated on a per-frame basis, however, instead of <em>one</em> update function to handle the <em>entire</em> game, there are often <em>multiple, smaller</em> update functions that handle the logic for <em>each entity.</em></p>
+<p>Let's take a hypothetical example from Super Mario.</p>
+<p><img alt="" src="../../images/2025-02-04-17-15-48-image.png" /></p>
+<p>Here, we have multiple entities on the screen. The point to keep in mind here is that each one of these entities have their own <strong>state (data)</strong> and <strong>logic</strong> functions for being updated that are executed each frame. If we take the Mario Entity for example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">var</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">String</span><span class="w"> </span><span class="c1"># name of the entity; &quot;Mario&quot;</span>
+<span class="k">var</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector2</span><span class="w"> </span><span class="c1"># current position in space</span>
+<span class="k">var</span><span class="w"> </span><span class="n">velocity</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector2</span><span class="w"> </span><span class="c1"># current movement vector</span>
+<span class="k">var</span><span class="w"> </span><span class="n">num_lives</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="w"> </span><span class="c1"># number of lives left before game is over</span>
+<span class="k">var</span><span class="w"> </span><span class="n">health</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="c1"># amount of health before life is lost</span>
+<span class="k">var</span><span class="w"> </span><span class="n">is_on_ground</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">bool</span><span class="w"> </span><span class="c1"># standing on ground or airborne?</span>
+</code></pre></div>
+<details class="note">
+<summary>GDScript</summary>
+<p>From here on out, we'll be coding using GDScript, which is the scripting language for Godot.
+The examples here should apply to most engines regardless of the language.</p>
+<p>GDScript resembles Python in many ways. There is a page in the "Godot Resources" directory for learning GDScript which we recommend you read later.
+For now, the language is simple enough that you should be able to follow along with what's happening and what is meant by the code.</p>
+</details>
+<p>This is the total <em>state</em> or data that the Mario Entity <em>code</em> can access and modify. If we look at another hypothetical example for the the actual <strong>code</strong> for the entity.</p>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">Update</span><span class="p">():</span>
+<span class="w">    </span><span class="c1"># move left or right based on player input</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">is_on_ground</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="bp">true</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># handle jump if player pressed jump</span>
+<span class="w">    </span><span class="k">else</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># currently in the air: apply gravity</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">colliding_with_enemy</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># take damage</span>
+</code></pre></div>
+<p>The <code>Update</code> function is the same as the one we know from before; it is run once each frame. The only difference is that this function is "local" to just this one entity. Every other entity similarly has its own update function and mutable state that will affect the game.</p>
+<p>Let's move on to another example for the Mystery Block Entity. The purpose of this entity is to spawn an item whenever Mario hits it for the first time.</p>
+<div class="highlight"><pre><span></span><code><span class="k">var</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">String</span><span class="w"> </span><span class="c1"># name of the entity; &quot;Mystery Block&quot;</span>
+<span class="k">var</span><span class="w"> </span><span class="n">position</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Vector2</span><span class="w"> </span><span class="c1"># current position in space</span>
+<span class="k">var</span><span class="w"> </span><span class="n">was_already_hit_before</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">bool</span><span class="w"> </span><span class="c1"># whether the block was hit before or not</span>
+<span class="k">var</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Item</span><span class="w"> </span><span class="c1"># what item the block gives when hit? coin, powerup, etc..</span>
+</code></pre></div>
+<p>Here's what its logic would look like.</p>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">Update</span><span class="p">():</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">mario_hit_block</span><span class="p">:</span><span class="w"> </span><span class="c1"># mario hits the block</span>
+<span class="w">        </span><span class="c1"># first time mario hitting the block</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">was_already_hit_before</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="bp">false</span><span class="p">:</span>
+<span class="w">            </span><span class="n">was_already_hit_before</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">true</span>
+<span class="w">            </span><span class="n">item</span><span class="o">.</span><span class="n">Spawn</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="update-cycle">Update Cycle</h3>
+<p>In game engines, there are multiple entities, therefore there are multiple <code>Update</code> functions. So, what's really happening between frames? What's happening is not much different from what you might expect or already know from last week.</p>
+<p>Taking the Mario example from earlier. There are at least 6 entities we highlighted. So, those are 6 <code>Update</code> functions, some of them are the same functions, but happen to be on different entities that have different data (for examaple, the Goombas are not all in the same place). In any case, each frame, the <code>Update</code> functions are all called in some order, then the frame is rendered to the screen, and it repeats.</p>
+<p><strong><em>Frame 1</em></strong></p>
+<ul>
+<li>
+<p>Mario <code>Update</code> is called</p>
+</li>
+<li>
+<p>Mystery Block <code>Update</code> is called</p>
+</li>
+<li>
+<p>Goomba 1 <code>Update</code> is called</p>
+</li>
+<li>
+<p>Goomba 2 <code>Update</code> is called</p>
+</li>
+<li>
+<p>Goomba 3 <code>Update</code> is called</p>
+</li>
+<li>
+<p>Bullet <code>Update</code> is called</p>
+</li>
+<li>
+<p>Each entity is rendered (drawn) to the screen</p>
+</li>
+</ul>
+<p><strong><em>Frame 2</em></strong></p>
+<ul>
+<li>Same as last frame</li>
+</ul>
+<p>No given entity's <code>Update</code> function is called more than once in the same frame, and the entities are all updated first then rendered to the screen, then the cycle repeats.</p>
+<p>This is how the vast majority of game engine's handle their "entities". Of course, each engine may have a different word for "entity" (<em>GameObject</em> for Unity, <em>Node</em> for Godot...) but the concept of having self-contained stateful objects that have code and exist in the game world is almost universal among the big game engines, and it's the same for all of them.</p>
+<h2 id="assets">Assets</h2>
+<p>One final topic about common game engine elements we will discuss before moving on to the next section is <strong>assets.</strong></p>
+<p>In the previous section where we made Pong, we depended entirely on just rectangles and circles for the visuals. Ideally though, our game would have more detailed and advanced digital content such as models, images, textures, sounds, etc...</p>
+<p>These pieces of digital content that go into our game are called <strong>assets</strong>. Game engines come with their own way of importing assets and using them in-game.</p>
+<p>Assets can be <em>tethered</em> or <em>connected</em> to our entities to create believable, immersive, and coherent <strong>game worlds</strong>. They can be set through the editor of the engine, or set and changed through code to respond to events.</p>
+<p>Here's an example of a Mario sprite asset being used inside the Super Mario game.</p>
+<p><img alt="" src="../../images/2025-02-04-22-40-55-Picture1.png" /></p>
+<p>As you can see, there is a general "sheet" of sprites containing many images of Mario, but in the game, we can see Mario as an entity clearly moving around and interacting with the world. In here, it's as if we've "clipped" the sprite from the sheet, and glued it onto the Mario entity in the game to give it life.</p>
+<p>In reality, this is what happens most of the time in game engines. If the sprite didn't exist, we would not be able to see Mario at all, or we would see him just as a lifeless rectangle. The asset we <em>import from</em> the sheet <em>to</em> the <em>game</em> gives our entity life.</p>
+<p>And with that, we conclude this section on game engines. In the next section, we will talk more about Godot and how it works.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/@GDG_IAU" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9zm-24.8 373.8h39.1L151.1 88h-42z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/company/gdg-at-iau" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.select", "content.code.copy", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

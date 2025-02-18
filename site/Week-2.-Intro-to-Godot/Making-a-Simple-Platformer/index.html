@@ -1,0 +1,1328 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Creating-a-Moving-Square/">
+      
+      
+        <link rel="next" href="../Tasks/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Making a Simple Platformer - Google Developer Groups IAU - Game Development Track</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#making-a-simple-platformer" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Google Developer Groups IAU - Game Development Track" class="md-header__button md-logo" aria-label="Google Developer Groups IAU - Game Development Track" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Google Developer Groups IAU - Game Development Track
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Making a Simple Platformer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Week-1.-Making-Your-First-Game/" class="md-tabs__link">
+          
+  
+  Week 1. Making Your First Game
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  Week 2. Intro to Godot
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Google Developer Groups IAU - Game Development Track" class="md-nav__button md-logo" aria-label="Google Developer Groups IAU - Game Development Track" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Google Developer Groups IAU - Game Development Track
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week 1. Making Your First Game
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Week 1. Making Your First Game
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/1-Setting-Up/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/2-The-Game-Loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. The Game Loop
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/3-Making-Pong/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Making Pong
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/Resources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Resources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Week 2. Intro to Godot
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Week 2. Intro to Godot
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Game-Engine-Concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Game Engines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Nodes-and-Scenes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes and Scenes in Godot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Creating-a-Moving-Square/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Creating a Moving Square
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Making a Simple Platformer
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Making a Simple Platformer
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#refactoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refactoring
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#player-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Player Script
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Player Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gravity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gravity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jumping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jumping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#obstacle-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      Obstacle Scene
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-door-to-another-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Door to Another Scene
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a Door to Another Scene">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scripting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scripting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tasks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    GDScript
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            GDScript
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is GDScript?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Variables-and-Data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variables and Data Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Array/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Array
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/RNG/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random Number Generator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operators and Computation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/If-else/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    If-else Statements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Dictionaries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dictionaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Looping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Looping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#refactoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Refactoring
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#player-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Player Script
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Player Script">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gravity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gravity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jumping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Jumping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#obstacle-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      Obstacle Scene
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-door-to-another-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Door to Another Scene
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a Door to Another Scene">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scripting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scripting
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="making-a-simple-platformer">Making a Simple Platformer</h1>
+<h2 id="refactoring">Refactoring</h2>
+<p>Let's try and make a simple platformer, where the player can move and jump, and their goal is to reach a certain point in the level.</p>
+<p>First, let's try and reorganize our code and input maps to be better organized. Let's use the input map feature of Godot to define certain input actions and their associated keys. We want the player to be able to move left and right, and jump.</p>
+<p>Let's define each of these three actions.</p>
+<p><img alt="" src="../../images/2025-02-18-15-16-19-image.png" /></p>
+<h2 id="player-script">Player Script</h2>
+<p>Now let's rewrite our player's code.</p>
+<div class="highlight"><pre><span></span><code><span class="err">@</span><span class="k">export</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">400</span>
+
+<span class="k">func</span><span class="w"> </span><span class="n">_physics_process</span><span class="p">(</span><span class="n">delta</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">input_direction</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Input</span><span class="o">.</span><span class="n">get_axis</span><span class="p">(</span><span class="s2">&quot;player_left&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;player_right&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">velocity</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input_direction</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span>
+
+<span class="w">    </span><span class="n">move_and_slide</span><span class="p">()</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Physics Process</p>
+<p>In Godot, there are two "update" functions.
+A regular _process() function, and a specialized _physics_process() function.</p>
+<p>The regular _process() updates every frame it possibly can, it's better suited for game logic related code.</p>
+<p>The _physics_process() on the other hand, updates on a fixed timestep, which means it's scheduled to execute on a certain timescale (every 0.05 seconds, for example).</p>
+<p>The schedule will never change, not as the game is running nor across different devices.
+The _process() however is variable (changes with FPS).</p>
+<p>This makes _physics_process() better for handling physics computations, since it will make the physics outcomes our code more deterministic and less random.</p>
+<p>You can read more about the different process functions on <a href="https://docs.godotengine.org/en/stable/tutorials/scripting/idle_and_physics_processing.html">Godot's official documentation on the subject.</a></p>
+</div>
+<p>This will make our player move only left and right based on input. Let's scale the player up in our game (press the S key in the editor to switch to scale mode) and play.</p>
+<p><img alt="" src="../../images/2025-02-18-15-35-17-Godot_v4.3-stable_win64_PK8aBAnkGG.gif" /></p>
+<p>Let's place the obstacle underneath the player now towards the bottom of the screen, and try to apply gravity in our code.</p>
+<p><img alt="" src="../../images/2025-02-18-15-42-50-image.png" /></p>
+<h3 id="gravity">Gravity</h3>
+<p>We want to apply gravity so long as the player is <strong>not</strong> on the ground. If we open the docs for the <em>CharacterBody2D</em> node, we can find a suite of methods for detecting which part of the node is colliding with which direction.</p>
+<p><img alt="" src="../../images/2025-02-18-15-46-52-image.png" /></p>
+<p>The one we're interested in is <code>is_on_floor()</code>, particularly, we're interested in when this methods return value is false.</p>
+<p>We need to do a check in the script to see if this method return value is false.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">input_direction</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Input</span><span class="o">.</span><span class="n">get_axis</span><span class="p">(</span><span class="s2">&quot;player_left&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;player_right&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">velocity</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input_direction</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">is_on_floor</span><span class="p">():</span>
+<span class="w">        </span><span class="c1"># apply gravity</span>
+</code></pre></div>
+<p>When this <code>is_on_floor()</code> is false, we know we're in the air. When we're in the air, we want to apply gravity. One way to do this is to create a simple <code>gravity</code> property in the player script and set <code>velocity.y</code> to this property when we're in the air.</p>
+<div class="highlight"><pre><span></span><code><span class="err">@</span><span class="k">export</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">400</span>
+<span class="err">@</span><span class="k">export</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">gravity</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500</span>
+
+<span class="k">func</span><span class="w"> </span><span class="n">_physics_process</span><span class="p">(</span><span class="n">delta</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span><span class="w">    </span>
+<span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">input_direction</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Input</span><span class="o">.</span><span class="n">get_axis</span><span class="p">(</span><span class="s2">&quot;player_left&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;player_right&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">velocity</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input_direction</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">is_on_floor</span><span class="p">():</span>
+<span class="w">        </span><span class="n">velocity</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">gravity</span>
+</code></pre></div>
+<p>But there's a problem with this code. In the real world (and in games too), gravity is an <u>accelerant</u> to velocity. In other words, velocity is not <u>equal</u> to gravity, it is <u>accelerated</u> by gravity. The relation we've specified in the code is an <u>equal to</u> relationship <code>velocity.y = gravity</code>, if we want to be more accurate, it would be an <u>acceleration</u> relation <code>velocity.y += gravity</code>.</p>
+<p>But there's another problem with <code>velocity.y += gravity</code>, if we're adding gravity <em>every frame</em>, that means the rate of acceleration will be variable depending on the frames per second, to decouple FPS from the acceleration we need to multiply by delta <code>velocity.y += gravity * delta</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">is_on_floor</span><span class="p">():</span>
+<span class="w">        </span><span class="n">velocity</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">gravity</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">delta</span>
+</code></pre></div>
+<p>This is a more accurate application of gravity in our script code.</p>
+<p>If we run it now, we can see our player will move down and land on the obstacle, and continue accelerating downwards when we move off of it.</p>
+<h3 id="jumping">Jumping</h3>
+<p>Now we want our player to be able to jump. The way we do this is by first checking if we <em>are</em> on the ground, and checking if we have pressed the jump button, since those are two condition we need to make sure are true when we jump.</p>
+<p>This is pretty straightforward, we already know the function to check if we're on the floor, and the function to check if we've pressed an action is <code>Input.is_action_just_pressed("action")</code>.</p>
+<p>When we jump, we want to set <code>velocity.y</code> to some force that goes <strong>upwards</strong>, and then we'll just let gravity do the rest. What will happen is the player will move upwards at a decreasing rate, until it stops at the peak and then accelerates downwards.</p>
+<p>We'll create a variable called <code>jump_force</code> to describe what this initial <code>velocity.y</code> is upon jumping.</p>
+<div class="highlight"><pre><span></span><code><span class="err">@</span><span class="k">export</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">jump_force</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">400</span>
+</code></pre></div>
+<p>Then when the conditions for jumping are fulfilled we'll set <code>velocity.y</code> equal to this jump force.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">is_on_floor</span><span class="p">():</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">Input</span><span class="o">.</span><span class="n">is_action_just_pressed</span><span class="p">(</span><span class="s2">&quot;player_jump&quot;</span><span class="p">):</span>
+<span class="w">            </span><span class="n">velocity</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">jump_force</span>
+</code></pre></div>
+<p>Once we run it we can see we're jumping properly now.</p>
+<p><img alt="" src="../../images/2025-02-18-16-08-31-Godot_v4.3-stable_win64_piXIrmtPAx.gif" /></p>
+<p>Now we've done most of everything related to the player script, let's try to complete the other parts of our platformer.</p>
+<h2 id="obstacle-scene">Obstacle Scene</h2>
+<p>At the moment, in our scene tree, the obstacle is just another "branch" for the root node. It's not considered its <em>own</em> scene.</p>
+<p><img alt="" src="../../images/2025-02-18-16-24-25-image.png" /></p>
+<p>What we want to do is to make this branch its own scene. The reason we want to do this is so that we can get control over <em>every instance</em> of the scene.</p>
+<p>The way we do this is by right-clicking on the node we want to make its own scene, and clicking on "Save Branch as Scene..." This will prompt us to name our scene file and place it in our file system.</p>
+<p><img alt="" src="../../images/2025-02-18-16-29-30-image.png" /></p>
+<p>I've made 2 folders, a Scripts and Scenes folder to better organize our assets. I'll place our new obstacle scene in the Scenes folder.</p>
+<p><img alt="" src="../../images/2025-02-18-16-29-46-image.png" /></p>
+<p>Once we save it we can see in our tree, in place of our old branch we just have an <em>Obstacle</em> node that we can't expand to see its children. However there is a strange film-director icon next to it. When we press it, it will take us to a new tab with just the obstacle scene by itself.</p>
+<p><img alt="" src="../../images/2025-02-18-16-31-55-image.png" /></p>
+<p><img alt="" src="../../images/2025-02-18-16-32-15-image.png" /></p>
+<p>In this independent scene, our obstacle node is not centered in the origin. This is not ideal since it will make placement of our scene in another scene odd since it might not always land where we expect it to as soon as we place it in the scene.</p>
+<p>Let's just center the scene to the origin.</p>
+<p><img alt="" src="../../images/2025-02-18-16-33-50-image.png" /></p>
+<p>Once we return to our root scene, the obstacle will be in the origin. That's fine, just change its position back. Let's copy the obstacle now and create a sort of level with obstacles. Make sure the pasted obstacles are children of root!</p>
+<p><img alt="" src="../../images/2025-02-18-16-38-50-image.png" /></p>
+<p>Let's play and test the level.</p>
+<p><img alt="" src="../../images/2025-02-18-16-39-19-Godot_v4.3-stable_win64_X7Dpnw4yVv.gif" /></p>
+<p>It works fine, but what if we want to change the color of the obstacles? Like orange for example.</p>
+<p>Before saving our obstacle as a scene, we would've have had to manually change the color of each obstacle, one by one. But now that our obstacle is its own scene, all that we have to do is go to that scene and change it's color, and all of the instances of that scene in other places will change as well.</p>
+<p><img alt="" src="../../images/2025-02-18-16-41-58-image.png" /></p>
+<p>If we save and go back to our root scene, all of the obstacles will have changed colors now.</p>
+<p><img alt="" src="../../images/2025-02-18-16-42-20-image.png" /></p>
+<h2 id="creating-a-door-to-another-scene">Creating a Door to Another Scene</h2>
+<p>Having this basic platformer is good, but what if we want an end to the level? Say, a door, that once touched by the player will change the current scene to a separate scene that has the text "Congratulations, we've just made our first game in Godot!".</p>
+<p>Let's create such a scene, in the top part of the screen, there's a "+" icon next to the tabs. Clicking on it will create a new scene.</p>
+<p><img alt="" src="../../images/2025-02-18-16-47-09-image.png" /></p>
+<p><img alt="" src="../../images/2025-02-18-16-47-16-image.png" /></p>
+<p>Let's create a "Label" node as the root of this scene.</p>
+<p><img alt="" src="../../images/2025-02-18-16-47-46-image.png" /></p>
+<p>Let's adjust its properties so that it's centerd in the middle of the screen and has the text we want.</p>
+<p><img alt="" src="../../images/2025-02-18-16-48-41-image.png" /></p>
+<p>Let's save it as "win_screen.tscn" in our Scenes folder in the file system.</p>
+<p><img alt="" src="../../images/2025-02-18-16-49-27-image.png" /></p>
+<p>Now let's create the "Door" scene.</p>
+<p>For this, we'll just make an <em>Area2D</em> node with <em>ColorRect</em> and <em>CollisionShape2D</em> children.</p>
+<p><img alt="" src="../../images/2025-02-18-16-56-16-image.png" /></p>
+<p>Let's save it as "door.tscn".</p>
+<p><img alt="" src="../../images/2025-02-18-16-56-32-image.png" /></p>
+<h3 id="scripting">Scripting</h3>
+<p>We'll stay in our "Door" scene tab for now, let's create the script for detecting if the player has touched the door.</p>
+<p>For this we'll use <a href="https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html">signals</a>. Which are kind of like events or announcements that an event has occurred stemming from one node. Other nodes can respond to this event in whatever they like.</p>
+<p>When you open the documentation for a node, you can see all of the signals of that node. For <em>Area2D</em>, the event we're interested in is <code>body_entered</code>.</p>
+<p><img alt="" src="../../images/2025-02-18-16-59-51-image.png" /></p>
+<p>We'll create a script for the door node called "door.gd" (place it in the Scripts folder). Let's hook up this <code>body_entered</code> signal to our new door script.</p>
+<p>The way we do this is by clicking on the "Node" tab next to our inspector window.</p>
+<p><img alt="" src="../../images/2025-02-18-17-00-47-image.png" /></p>
+<p>When you select a node in the scene tree, it will show you all of the signals of that node.</p>
+<p><img alt="" src="../../images/2025-02-18-17-01-10-image.png" /></p>
+<p>From here you can link a signal to a script. Let's click on <em>body_entered</em> and connect it to our Door node.</p>
+<p><img alt="" src="../../images/2025-02-18-17-02-22-image.png" /></p>
+<p>This will create a new <em>receiver method</em> in our Door script. The green arrow means the method is a receiver method, which means it will execute in <em>response</em> to a signal being emitted. In this case, this method will execute once our <em>Area2D</em> door detects a body entering the area. In other words, when our player touches it.</p>
+<p><img alt="" src="../../images/2025-02-18-17-02-45-image.png" /></p>
+<p>Now let's make it change scenes once we've touched it. The function to do this is <code>get_tree().change_scene_to_file("scene)</code>. Once you type it out, it will fill an autocorrect with all scenes in the file system.</p>
+<p><img alt="" src="../../images/2025-02-18-17-04-49-image.png" /></p>
+<p>Let's choose our new "win_screen.tscn" scene.</p>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">_on_body_entered</span><span class="p">(</span><span class="n">body</span><span class="p">:</span><span class="w"> </span><span class="n">Node2D</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">    </span><span class="n">get_tree</span><span class="p">()</span><span class="o">.</span><span class="n">change_scene_to_file</span><span class="p">(</span><span class="s2">&quot;res://Scenes/win_screen.tscn&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Now let's finally place this new Door scene in our root. Just go back to our root scene and drag the <em>door.tscn</em> from the file system to the tree. Again make sure it's a child of root.</p>
+<p><img alt="" src="../../images/2025-02-18-17-07-18-image.png" /></p>
+<p>Now once we play, it should work.</p>
+<p><img alt="" src="../../images/2025-02-18-17-07-54-Godot_v4.3-stable_win64_6avFkRBdCx.gif" /></p>
+<p>And that's it! That's our first game made in Godot.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/@GDG_IAU" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9zm-24.8 373.8h39.1L151.1 88h-42z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/company/gdg-at-iau" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.select", "content.code.copy", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>

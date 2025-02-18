@@ -1,0 +1,1609 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Nodes-and-Scenes/">
+      
+      
+        <link rel="next" href="../Making-a-Simple-Platformer/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Creating a Moving Square - Google Developer Groups IAU - Game Development Track</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creating-a-moving-square" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Google Developer Groups IAU - Game Development Track" class="md-header__button md-logo" aria-label="Google Developer Groups IAU - Game Development Track" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Google Developer Groups IAU - Game Development Track
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Creating a Moving Square
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Week-1.-Making-Your-First-Game/" class="md-tabs__link">
+          
+  
+  Week 1. Making Your First Game
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  Week 2. Intro to Godot
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Google Developer Groups IAU - Game Development Track" class="md-nav__button md-logo" aria-label="Google Developer Groups IAU - Game Development Track" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Google Developer Groups IAU - Game Development Track
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week 1. Making Your First Game
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Week 1. Making Your First Game
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/1-Setting-Up/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/2-The-Game-Loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. The Game Loop
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/3-Making-Pong/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Making Pong
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/Resources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Resources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Week 2. Intro to Godot
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Week 2. Intro to Godot
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Game-Engine-Concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Game Engines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Nodes-and-Scenes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes and Scenes in Godot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Creating a Moving Square
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Creating a Moving Square
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-godot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Godot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nodes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types-of-collisionobject2ds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of CollisionObject2Ds
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-children" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Children
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adding Children">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-collider-collisionshape2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Collider - CollisionShape2D
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-square-colorrect" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Square - ColorRect
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saving-the-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      Saving the Scene
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selecting-and-playing-the-main-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selecting and Playing the Main Scene
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripting-the-player" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scripting the Player
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scripting the Player">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating the Script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-the-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing the Script
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Maps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#communicating-between-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Communicating Between Nodes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Communicating Between Nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onready" class="md-nav__link">
+    <span class="md-ellipsis">
+      @onready
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exposing-variables-in-the-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exposing Variables in the Editor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-node-methods-in-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Node Methods in Scripts
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Making-a-Simple-Platformer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Making a Simple Platformer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Tasks/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tasks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    GDScript
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            GDScript
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is GDScript?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Variables-and-Data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variables and Data Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Array/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Array
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/RNG/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random Number Generator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operators and Computation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/If-else/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    If-else Statements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Dictionaries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dictionaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Looping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Looping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-godot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Godot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nodes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#types-of-collisionobject2ds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types of CollisionObject2Ds
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-children" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Children
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Adding Children">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-collider-collisionshape2d" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Collider - CollisionShape2D
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-square-colorrect" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Square - ColorRect
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saving-the-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      Saving the Scene
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#selecting-and-playing-the-main-scene" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selecting and Playing the Main Scene
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripting-the-player" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scripting the Player
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scripting the Player">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating the Script
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-the-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing the Script
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Maps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#communicating-between-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Communicating Between Nodes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Communicating Between Nodes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#onready" class="md-nav__link">
+    <span class="md-ellipsis">
+      @onready
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exposing-variables-in-the-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exposing Variables in the Editor
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-node-methods-in-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Node Methods in Scripts
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="creating-a-moving-square">Creating a Moving Square</h1>
+<p>Now that we have a rough overview of Godot’s core concepts, let’s try them out in practice. Let’s try recreating our moving red square from our introduction last week and make obstacles that it can collide with.</p>
+<h2 id="installing-godot">Installing Godot</h2>
+<p>Godot is a light-weight engine; the entire engine is just one executable file. Godot can be downloaded from <a href="https://godotengine.org/download/">this link</a>.</p>
+<p><img alt="" src="../../images/2025-02-05-22-41-57-image.png" /></p>
+<h2 id="getting-started">Getting Started</h2>
+<p>Once you first open Godot, you'll be taken to the <em>"Projects"</em> screen, where you can manage all your projects.</p>
+<p><img alt="" src="../../images/2025-02-05-22-43-56-image.png" /></p>
+<p>Let's go ahead and create our first project, you can call it anything you like. After we create our project, we'll be greeted by this screen.</p>
+<p><img alt="" src="../../images/2025-02-05-22-44-52-image.png" /></p>
+<p>This is the Godot interface. You can learn more about the details of the interface and how to navigate it in the Godot Resources section.</p>
+<p>Let’s choose to create a 2D scene. This will create a “Node2D” node as the root node.</p>
+<p><img alt="" src="../../images/2025-02-05-00-19-10-Picture3.png" /></p>
+<p>Let's rename it to "Root".</p>
+<p><img alt="" src="../../images/2025-02-05-00-20-03-image.png" /></p>
+<h2 id="nodes">Nodes</h2>
+<p>The "Node2D" node is one of the many types of nodes available in Godot. It is the node that nearly every 2D node derives from, in other words, every 2D node has the same properties and functions of a "Node2D" plus it's own unique properties and methods.</p>
+<p>When you try to create a new node, you'll be taken to the "Create New Node" screen, which lists all possible nodes and contains a description for each of them.</p>
+<p><img alt="" src="../../images/2025-02-05-00-22-24-Picture4.png" /></p>
+<p>When it comes to the moving square we want to make, we have the option of just making a 2D image of a square that simply moves around. But we don't just want a picture of a moving box, we want an actual box <em>object</em> that can move and collide with other objects.</p>
+<p>To do this, we have to use a node of type <em>PhysicsBody2D</em>. For our purposes, let's choose the <em>CharacterBody2D</em> node.</p>
+<p><img alt="" src="../../images/2025-02-05-00-35-11-image.png" /></p>
+<h3 id="types-of-collisionobject2ds">Types of CollisionObject2Ds</h3>
+<p><em>CollisionObject2D</em> is an abstract node. "Abstract" means that the node itself is not a real node that can exist in a scene, but other that derive from it can. Basically, "abstract" means that the node is just a "blueprint" node for other nodes to derive from. Excluding <em>RigidBody2D</em> and it's inheritor, there are four major nodes of this type.</p>
+<ul>
+<li>
+<p><strong>CharacterBody2D</strong></p>
+</li>
+<li>
+<p><strong>StaticBody2D</strong></p>
+</li>
+<li>
+<p><strong>AnimatableBody2D (inherits StaticBody2D)</strong></p>
+</li>
+<li>
+<p><strong>AreaBody2D</strong></p>
+</li>
+</ul>
+<p><img alt="" src="../../images/2025-02-05-00-39-05-Picture5.png" /></p>
+<h2 id="adding-children">Adding Children</h2>
+<p>Going back to our scene, we'll see that after we add our <em>CharacterBody2D</em> into the scene that nothing visually changes. Also, the node gives us a warning that it's missing a <em>CollisionShape2D</em>.</p>
+<p><img alt="" src="../../images/2025-02-05-01-00-01-image.png" /></p>
+<p>The <em>CharacterBody2D</em> node is only a node for specifying physics behaviour, but it doesn't specify anything about its <u>shape</u> or <u>look</u>. In order to add this functionality to our <em>CharacterBody2D</em>, we must simply add the two appropriate child nodes.</p>
+<h3 id="the-collider-collisionshape2d">The Collider - CollisionShape2D</h3>
+<p>First, let's add the <em>CollisionShape2D</em>. Right-click on the node and press <em>Add Child Node</em>.</p>
+<p><img alt="" src="../../images/2025-02-05-01-00-35-image.png" /></p>
+<p>Now let's choose <em>CollisionShape2D</em>.</p>
+<p><img alt="" src="../../images/2025-02-05-01-00-48-image.png" /></p>
+<p>Once we add the child, the warning on <em>CharacterBody2D</em> goes away but a new one on <em>CollisionShape2D</em> appears.</p>
+<p><img alt="" src="../../images/2025-02-05-01-07-52-image.png" /></p>
+<p>To fix this we must edit the properties of the node to specify an actual shape. Go to the inspector dock and let’s choose the rectangle shape for our collider.</p>
+<p><img alt="" src="../../images/2025-02-05-01-08-09-image.png" /></p>
+<p>Once we've done that, the warnings will disappear, and we should have an actual shape of a rectangle appear in our viewport. This is the shape of the <em>collider</em>, in other words, this is what our <em>CharacterBody2D</em> node will use as a <u>reference</u> to check what it is and is not colliding with at any given time.</p>
+<p><img alt="" src="../../images/2025-02-05-01-09-48-image.png" /></p>
+<p>The blue square represents the collider, this square only appears in the editor for debug purposes, it will not show when we play the game/scene.</p>
+<h3 id="the-square-colorrect">The Square - ColorRect</h3>
+<p>Now that we have our <em>CollisionShape2D</em> child, let's add in our visual for the square. Usually, we would choose a <em>Sprite2D</em> node for this, which takes in an image resource and displays it in 2D space. However, Godot doesn't have ready image resources for simple shapes, so for the sake of simplicity, we'll instead use a <em>ColorRect</em> node, which just draws a colored 2D rectangle.</p>
+<p><img alt="" src="../../images/2025-02-05-01-13-32-image.png" /></p>
+<details class="note">
+<summary>Note</summary>
+<p>Technically, this node should be used for UI purposes, but we're using it in this case because it suits our needs well enough.</p>
+</details>
+<p>Once we add it in, we get this.</p>
+<p><img alt="" src="../../images/2025-02-05-01-14-37-image.png" /></p>
+<p>The rectangle is much bigger than the collider and it's off-center. Moreover, the <em>ColorRect</em> is covering the collider. This is because the <em>ColorRect</em> node comes <u><em>after</em></u> the <em>CollisionShape2D</em> node in the hierarchy, so it gets drawn on top of it. We can change this by moving the nodes around in the hierarchy then using the red control points on the rect to get it to allign with the collider.</p>
+<p><img alt="" src="../../images/2025-02-05-01-17-07-Picture6.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We adjust the ColorRect node using the red points to align with the collider. Godot's editor snaps the points to the nearest pixel on a pixel grid, so this is quite easy.</p>
+</div>
+<h2 id="saving-the-scene">Saving the Scene</h2>
+<p>Now that our "player" box scene is ready, let's save the current scene by pressing <em>Ctrl + S</em>. This will open a <em>"Save Scene As..."</em> dialog box that will save the <em>root</em> of our scene first.</p>
+<p>In Godot, scenes are technically files (<em>.tscn</em>), same for scripts (<em>.gd</em>). And to play a scene, Godot must have a reference to it as a file. So to play our current scene, we must save the root file first.</p>
+<p><img alt="" src="../../images/2025-02-05-01-19-36-image.png" /></p>
+<p>Once we click "<em>Save</em>", it will show up in our file system.</p>
+<p><img alt="" src="../../images/2025-02-05-01-21-43-image.png" /></p>
+<h2 id="selecting-and-playing-the-main-scene">Selecting and Playing the Main Scene</h2>
+<p>Let’s try to play our scene now. Our root scene should be saved in our file system, so let’s click the Play button now. It will be on the top-right part of the screen.</p>
+<p><img alt="" src="../../images/2025-02-05-01-23-37-Picture7.png" /></p>
+<p>Once we press the play button, a dialog box will show up prompting us to select a “<em>main scene</em>”, this is the first scene Godot will play when starting the game and can change throughout the run of the game. Currently, we only have one scene in our project, <em>root</em>, so we can press <em>"Select"</em> or <em>"Select Current"</em> it doesn’t really make a difference.</p>
+<p><img alt="" src="../../images/2025-02-05-01-27-15-image.png" /></p>
+<p>If you click <em>Select</em>, you’ll be taken to the file system to choose a scene from the available ones among the files, we only have one scene, so it doesn’t matter for now.</p>
+<p>After choosing the scene, the game will start, and the scene will play.</p>
+<p><img alt="" src="../../images/2025-02-05-18-13-39-image.png" /></p>
+<p>You can notice at the top we have the name of the project, followed by <em>(DEBUG)</em>. This indicates our game is in debug build, which means that certain functions like <code>debug_print()</code> will execute only in this mode and not in the final release build.</p>
+<p>You can also notice our "player" is in the top-left corner of the screen, just like we had originally in our Raylib section.</p>
+<h2 id="scripting-the-player">Scripting the Player</h2>
+<h3 id="creating-the-script">Creating the Script</h3>
+<p>Now that we're done with creating the node configuration for our square, let's create a script for it so it can move around.</p>
+<p>Click on the <em>CharacterBody2D</em> node and then on the button representing a script with a green plus above it to create a new script.</p>
+<p><img alt="" src="../../images/2025-02-05-18-15-10-Picture9.png" /></p>
+<p>This will open a dialog box prompting you to specify the details of the script, such as its name and place in the file system, which node it inherits from, and whether to use a template.</p>
+<p><img alt="" src="../../images/2025-02-05-18-16-21-Picture10.png" /></p>
+<p>For now, let's just name the script <em>"player.gd"</em> and place it in the root directory of the file system, and let's change the template to <em>Default</em>.</p>
+<p><img alt="" src="../../images/2025-02-05-18-18-09-image.png" /></p>
+<p>We now arrive at this familiar screen.</p>
+<p><img alt="" src="../../images/2025-02-05-18-18-25-image.png" /></p>
+<p>This is the script editor built-in to Godot for GDScript. You can learn more about the Godot Interface in the resources section.</p>
+<h3 id="writing-the-script">Writing the Script</h3>
+<p>By this point, you should be familiar with the code to move an object around in the screen. We know that our script extends <em>CharacterBody2D</em> which inherits <em>Node2D.</em> One of the properties of <em>Node2D</em> is a <em>Vector2</em> variable called <em>position</em>.</p>
+<p>As you might expect, <em>position</em> is simply the objects position relative to its parent in the hierarchy (<em>global_position</em> is its true position in the coordinate space). For now, in the <code>_process</code> function, let's just move position down and to the right by adding a certain number to it and multiplying by <em>delta</em> to ensure it moves per second units by that number.</p>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">_process</span><span class="p">(</span><span class="n">delta</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">    </span><span class="c1"># &quot;position&quot; -&gt; property derived from Node2D</span>
+<span class="w">    </span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">40</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">delta</span>
+<span class="w">    </span><span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">40</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">delta</span>
+</code></pre></div>
+<p>If we run it now, we can see our square is moving steadily down and to the right.</p>
+<p><img alt="" src="../../images/2025-02-14-23-24-04-output.gif" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">_process</span><span class="p">(</span><span class="n">delta</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">horizontal_movement</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Input</span><span class="o">.</span><span class="n">get_axis</span><span class="p">(</span><span class="s2">&quot;ui_left&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ui_right&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">vertical_movement</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Input</span><span class="o">.</span><span class="n">get_axis</span><span class="p">(</span><span class="s2">&quot;ui_up&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ui_down&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">horizontal_movement</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">40</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">delta</span>
+<span class="w">    </span><span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">vertical_movement</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">40</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">delta</span>
+</code></pre></div>
+<p>This is the code to get our square moving according to player input. You can put it in the script and run it to verify it's working.</p>
+<p>Once we play our scene, we can see that the square is moving according to our input of the arrow keys properly.</p>
+<p><img alt="" src="../../images/2025-02-14-23-25-19-output.gif" /></p>
+<h2 id="input-maps">Input Maps</h2>
+<p>So what's really going on here?</p>
+<div class="highlight"><pre><span></span><code><span class="k">var</span><span class="w"> </span><span class="n">horizontal_movement</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Input</span><span class="o">.</span><span class="n">get_axis</span><span class="p">(</span><span class="s2">&quot;ui_left&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ui_right&quot;</span><span class="p">)</span>
+<span class="k">var</span><span class="w"> </span><span class="n">vertical_movement</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Input</span><span class="o">.</span><span class="n">get_axis</span><span class="p">(</span><span class="s2">&quot;ui_up&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;ui_down&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>To understand what's happening here we must first understand the concept in Godot of <strong><em>Input Maps</em></strong>. Input maps are a way for us to create <strong>bindings</strong> between certain <strong>labels (names)</strong>, and <strong>keys or inputs</strong> that <u>correlate</u> to that label.</p>
+<p>To see these input maps in Godot, we can go to Project Settings and check out the Input Map tab to see all of our custom and built-in input maps.</p>
+<p><img alt="" src="../../images/2025-02-05-18-56-51-image.png" /></p>
+<p><img alt="" src="../../images/2025-02-05-18-57-08-Picture5.png" /></p>
+<p>We can check the <em>Show Built-In Actions</em> button to show all input maps provided automatically by Godot.</p>
+<p><img alt="" src="../../images/2025-02-05-18-58-18-Picture6.png" /></p>
+<p>In practice, input maps are a way for us to <em>decouple</em> code using player input and the <em>actual keys</em> or <em>buttons</em> that input is taking.</p>
+<p><img alt="" src="../../images/2025-02-05-19-02-10-Picture7.png" /></p>
+<p>In this instance, <em>"ui_left"</em> is a generic input map for navigating UI, and it's mapped across the joystick, left arrow key, and left D-Pad button.</p>
+<p>When it comes to the <code>get_axis</code> function we used, if we open the documentation this is what it says.</p>
+<blockquote>
+<div class="highlight"><pre><span></span><code><span class="nb nb-Type">float</span><span class="w"> </span><span class="n">get_axis</span><span class="p">(</span><span class="n">negative_action</span><span class="p">:</span><span class="w"> </span><span class="n">StringName</span><span class="p">,</span><span class="w"> </span><span class="n">positive_action</span><span class="p">:</span><span class="w"> </span><span class="n">StringName</span><span class="p">)</span><span class="w"> </span><span class="k">const</span>
+</code></pre></div>
+<p>Get axis input by specifying two actions, one negative and one positive.</p>
+<p>This is shorthand for writing <code>Input.get_action_strength("position_action") - Input.get_action_strength("negative_action")</code>.</p>
+</blockquote>
+<p>Effectively, we're specifying a "positive_action" (right) and subtracting it from a "negative_action" (left), which gives us a value specifying how much are we moving left or right.</p>
+<h2 id="communicating-between-nodes">Communicating Between Nodes</h2>
+<p>You can imagine a scenario where we have multiple nodes linked to one parent scene, who want some way of communicating with each other. Or a scenario where a parent node wants to modify some property in one of its children. For something like this to happen, nodes must have access to each other in some way. In GDScript, the nodes are a variable type like any other, and they can be specified as a variable too.</p>
+<p>In our case, say we want to change the color of our square when the player presses enter. For this to happen, our player script must have access to the ColorRect node responsible for displaying the coloured square. Let’s type it out as a property in the script.</p>
+<div class="highlight"><pre><span></span><code><span class="k">extends</span><span class="w"> </span><span class="n">CharacterBody2D</span>
+
+<span class="k">var</span><span class="w"> </span><span class="n">color_rect</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ColorRect</span>
+</code></pre></div>
+<p>Now let’s try to get this variable we’ve created to reference our players child node, <em>ColorRect</em>. There’s a function in Godot called get_node(), which can be called directly from a scene tree. Alternatively, the “$” sign in GDScript is shorthand for the same method. So, in the _ready() function we can just assign our color_rect variable to get the child node (ColorRect) of the current CharacterBody2D node the script is attached to.</p>
+<p><img alt="" src="../../images/2025-02-05-19-22-42-image.png" /></p>
+<p>Notice that when you press <em>'$"</em> Godot tries to display the available child nodes you can choose from.</p>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">_ready</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">    </span><span class="n">color_rect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">$</span><span class="n">ColorRect</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The node selection is based off the <strong><em>name</em></strong> of the <em>instance</em> of the node, <strong>not its <em>type</em></strong>.
+If we renamed our player's <em>ColorRect</em> node to something like <em>Square</em>, our code would instead say <code>color_rect = $Square</code></p>
+</div>
+<h3 id="onready">@onready</h3>
+<p>Often in Godot, there are variables that we want to have initialized to a certain value on start-up. We do this by first defining the variable as a property of the script, then setting it to the value we want in the <code>_ready()</code> function like earlier. There is however a way to shorten this process and automatically initialize variables to a value on startup by using the <code>@onready</code> modifier when we’re defining the variable and setting it to the value we want.</p>
+<p><img alt="" src="../../images/2025-02-05-19-26-33-Picture8.png" /></p>
+<p>In Godot, the built-in input action that relates to the enter key is “ui_accept”, so let’s check if the player has pressed that button, and on the frame they do, let’s just switch the color property of our ColorRect child to be red.</p>
+<div class="highlight"><pre><span></span><code><span class="k">func</span><span class="w"> </span><span class="n">_process</span><span class="p">(</span><span class="n">delta</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">void</span><span class="p">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">Input</span><span class="o">.</span><span class="n">is_action_just_pressed</span><span class="p">(</span><span class="s2">&quot;ui_accept&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="n">color_rect</span><span class="o">.</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb nb-Type">Color</span><span class="o">.</span><span class="n">RED</span>
+</code></pre></div>
+<p>When we press enter, the color now changes to red.</p>
+<p><img alt="" src="../../images/2025-02-14-23-27-05-output.gif" /></p>
+<h2 id="exposing-variables-in-the-editor">Exposing Variables in the Editor</h2>
+<p>Often in scripts there are variables that we want to tweak repeatedly until we settle on the value we like. Or there are variables that we want to be different depending on the instance of the script. If we have one enemy script for two different types of enemies for example, and we want both enemies to run at different speeds.</p>
+<p>In both cases, the appropriate thing to do is to “export” our variables into the editor, so we can tweak them like we would any other property in the inspector dock. We do this simply by adding <code>@export</code> to our variable definition in our script.</p>
+<p>Currently, our script has hard-coded the speed of our player at 40 pixels a second, let’s try parameterizing the speed into its own variable.</p>
+<p>First, let's define a <em>speed</em> float variable exported to the editor, and with 40 as the default value.</p>
+<div class="highlight"><pre><span></span><code><span class="err">@</span><span class="k">export</span><span class="w"> </span><span class="k">var</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">40</span>
+</code></pre></div>
+<p>Now let's replace our hard-coded 40 number with our new <em>speed</em> variable.</p>
+<div class="highlight"><pre><span></span><code><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">horizontal_movement</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">delta</span>
+<span class="n">position</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">vertical_movement</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">delta</span>
+</code></pre></div>
+<p>If we check out our inspector dock now on our <em>CharacterBody2D</em> player, we'll see a new property where our <em>player.gd</em> script is found. This variable now directly controls the <em>speed</em> variable of this instance of the script. Let's change the value to 200.</p>
+<p><img alt="" src="../../images/2025-02-05-20-04-06-Picture9.png" /></p>
+<p>If we run our scene now, we can see our player’s speed does in fact match our new speed that we set in the editor.</p>
+<p><img alt="" src="../../images/2025-02-14-23-28-24-output.gif" /></p>
+<h2 id="using-node-methods-in-scripts">Using Node Methods in Scripts</h2>
+<p>At the moment, we only have one square moving. Let's try to make some obstacles for it to collide with. In the scene tree, let's create a red <em>StaticBody2D</em> with a <em>CollisionShape2D</em> and <em>ColorRect</em> child nodes. Align them properly and make the <em>ColorRect</em> node red. We'll scale it vertically to make it taller.</p>
+<p><img alt="" src="../../images/2025-02-15-00-48-29-image.png" /></p>
+<p>If we play, we can see that the white moving square goes right through the obstacle.</p>
+<p><img alt="" src="../../images/2025-02-15-00-49-22-output.gif" /></p>
+<p>The reason why this is happening is because we aren't using any particular method to move the player. We're simply adding the <em>velocity</em> to <em>position</em>. This will cause <em>position</em> to be displaced <em>regardless</em> of whether or not the movement is possible.</p>
+<p>In order to take into account collisions in movement, we must use particular methods of nodes to move the body. For <em>CharacterBody2D</em>, there are 2 methods to do this:</p>
+<ul>
+<li>
+<p><code>move_and_collide(velocity)</code> inherited from <em>PhysicsBody2D</em></p>
+</li>
+<li>
+<p><code>move_and_slide()</code> unique to <em>CharacterBody2D</em></p>
+</li>
+</ul>
+<p><img alt="" src="../../images/2025-02-15-00-52-22-Picture1.png" /></p>
+<p>We can read more about this method in the documentation for <em>CharacterBody2D</em>.</p>
+<p><img alt="" src="../../images/2025-02-15-00-57-37-image.png" /></p>
+<blockquote>
+<p>Moves the body based on <code>velocity</code>.</p>
+</blockquote>
+<p>If we click on <code>velocity</code> in the documentation, it shows us that it is a <code>Vector2</code> property of the node.</p>
+<p><img alt="" src="../../images/2025-02-15-01-11-27-image.png" /></p>
+<blockquote>
+<p>Current velocity vector in <u>pixels per second.</u></p>
+</blockquote>
+<p>Based on this information, we can adjust our script now to set the <code>velocity</code> property given from the <em>CharacterBody2D</em> node, minus the delta time multiplication (since <code>velocity</code> is already described in pixels per second). With that, our square will now move.</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="n">velocity</span><span class="o">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">horizontal_movement</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span>
+<span class="w">    </span><span class="n">velocity</span><span class="o">.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vertical_movement</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">speed</span>
+
+<span class="w">    </span><span class="n">move_and_slide</span><span class="p">()</span>
+</code></pre></div>
+<p>We can see now our moving body will collide with the obstacle.</p>
+<p><img alt="" src="../../images/2025-02-15-01-14-21-output.gif" /></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/@GDG_IAU" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9zm-24.8 373.8h39.1L151.1 88h-42z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/company/gdg-at-iau" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.select", "content.code.copy", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
