@@ -1,0 +1,1362 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Making-a-Simple-Platformer/">
+      
+      
+        <link rel="next" href="../GDScript/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Tasks - Google Developer Groups IAU - Game Development Track</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/katex@0/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-1-use-collision-layers-and-masks-to-make-door-only-collide-with-the-player" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Google Developer Groups IAU - Game Development Track" class="md-header__button md-logo" aria-label="Google Developer Groups IAU - Game Development Track" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Google Developer Groups IAU - Game Development Track
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tasks
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Week-1.-Making-Your-First-Game/" class="md-tabs__link">
+          
+  
+  Week 1. Making Your First Game
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  Week 2. Intro to Godot
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Google Developer Groups IAU - Game Development Track" class="md-nav__button md-logo" aria-label="Google Developer Groups IAU - Game Development Track" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Google Developer Groups IAU - Game Development Track
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Week 1. Making Your First Game
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Week 1. Making Your First Game
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/1-Setting-Up/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/2-The-Game-Loop/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. The Game Loop
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/3-Making-Pong/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Making Pong
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Week-1.-Making-Your-First-Game/Resources/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Resources
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Week 2. Intro to Godot
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Week 2. Intro to Godot
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Game-Engine-Concepts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Game Engines
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Nodes-and-Scenes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nodes and Scenes in Godot
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Creating-a-Moving-Square/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Creating a Moving Square
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Making-a-Simple-Platformer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Making a Simple Platformer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Tasks
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Tasks
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#task-1-use-collision-layers-and-masks-to-make-door-only-collide-with-the-player" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Use Collision Layers and Masks to Make "Door" Only Collide with the Player
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task 1: Use Collision Layers and Masks to Make "Door" Only Collide with the Player">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-2-create-a-killzone-scene-that-resets-the-current-scene-when-the-player-touches-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Create a "Killzone" Scene that Resets the Current Scene when the Player Touches it
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task 2: Create a "Killzone" Scene that Resets the Current Scene when the Player Touches it">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hints_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-3-make-a-level-2-scene-with-obstacles-and-a-player-in-the-door-script-make-the-scene-that-is-switched-to-when-the-player-touches-it-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Make a Level 2 Scene with Obstacles and a Player, in the Door Script, Make the Scene that is Switched to When the Player Touches it Variable
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task 3: Make a Level 2 Scene with Obstacles and a Player, in the Door Script, Make the Scene that is Switched to When the Player Touches it Variable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hints_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-submit-the-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Submit the Task
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Submit the Task">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-forking-the-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Forking the Repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cloning-the-repository-and-adding-it-as-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Cloning the Repository and Adding it as a Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-after-youre-done-working-on-the-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. After You're Done Working on the Tasks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-make-the-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Make the Pull Request
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    GDScript
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            GDScript
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What is GDScript?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Variables-and-Data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Variables and Data Types
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Functions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Functions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Array/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Array
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/RNG/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Random Number Generator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Operators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Operators and Computation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/If-else/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    If-else Statements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Dictionaries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dictionaries
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../GDScript/Looping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Looping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#task-1-use-collision-layers-and-masks-to-make-door-only-collide-with-the-player" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 1: Use Collision Layers and Masks to Make "Door" Only Collide with the Player
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task 1: Use Collision Layers and Masks to Make "Door" Only Collide with the Player">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-2-create-a-killzone-scene-that-resets-the-current-scene-when-the-player-touches-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 2: Create a "Killzone" Scene that Resets the Current Scene when the Player Touches it
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task 2: Create a "Killzone" Scene that Resets the Current Scene when the Player Touches it">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hints_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-3-make-a-level-2-scene-with-obstacles-and-a-player-in-the-door-script-make-the-scene-that-is-switched-to-when-the-player-touches-it-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Task 3: Make a Level 2 Scene with Obstacles and a Player, in the Door Script, Make the Scene that is Switched to When the Player Touches it Variable
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Task 3: Make a Level 2 Scene with Obstacles and a Player, in the Door Script, Make the Scene that is Switched to When the Player Touches it Variable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hints_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hints
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-submit-the-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Submit the Task
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Submit the Task">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-forking-the-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Forking the Repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cloning-the-repository-and-adding-it-as-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Cloning the Repository and Adding it as a Project
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-after-youre-done-working-on-the-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. After You're Done Working on the Tasks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-make-the-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Make the Pull Request
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Tasks</h1>
+
+<p>For this week, you have 3 tasks. You must build upon the work done in the workshop to make the game more sophisticated.</p>
+<h2 id="task-1-use-collision-layers-and-masks-to-make-door-only-collide-with-the-player">Task 1: Use Collision Layers and Masks to Make "Door" <em>Only</em> Collide with the Player</h2>
+<p>In our current scene, when the door touches <em>anything</em>, it will trigger the signal and change the scene.</p>
+<p><img alt="" src="../../images/2025-02-18-17-10-59-Godot_v4.3-stable_win64_md3O7aoh17.gif" /></p>
+<p>Your task is to use the <a href="https://docs.godotengine.org/en/stable/tutorials/physics/physics_introduction.html#collision-layers-and-masks">Collision layers and masks</a> feature in Godot to <strong>filter out</strong> the non-player colliders from the player colliders.</p>
+<p><img alt="" src="../../images/2025-02-18-17-12-47-Picture1.png" /></p>
+<h3 id="hints">Hints</h3>
+<p>You can set-up the collision layers like this.</p>
+<p><img alt="" src="../../images/2025-02-18-17-13-52-image.png" /></p>
+<h2 id="task-2-create-a-killzone-scene-that-resets-the-current-scene-when-the-player-touches-it">Task 2: Create a "Killzone" Scene that Resets the Current Scene when the Player Touches it</h2>
+<p>Currently, if our player falls off the obstacle, he keeps falling down infinitely and the game doesn't reset it.</p>
+<p><img alt="" src="../../images/2025-02-18-17-16-04-Godot_v4.3-stable_win64_eth5GWKyhR.gif" /></p>
+<p>Your task is to create a new scene and script of type <em>Area2D</em> called "Killzone".</p>
+<p>You should place the node underneath the level and scale it horizontally to cover as much area so that when the player falls off, he will certainly touch the killzone.</p>
+<p><img alt="" src="../../images/2025-02-18-17-18-59-image.png" /></p>
+<p>Once the player touches this "killzone" the game will reset the current scene.</p>
+<h3 id="hints_1">Hints</h3>
+<ul>
+<li>
+<p>Use the <code>body_entered</code> signal.</p>
+</li>
+<li>
+<p>The method to reload the scene: <code>get_tree().reload_current_scene()</code></p>
+</li>
+</ul>
+<h2 id="task-3-make-a-level-2-scene-with-obstacles-and-a-player-in-the-door-script-make-the-scene-that-is-switched-to-when-the-player-touches-it-variable">Task 3: Make a Level 2 Scene with Obstacles and a Player, in the Door Script, Make the Scene that is Switched to When the Player Touches it Variable</h2>
+<p>Currently, when our player touches the door, we are transported to the win_screen scene. What if we wanted to make it go to a level 2 instead? And what if we want we want Level 2 to go to the win screen?</p>
+<p><img alt="" src="../../images/2025-02-18-17-28-10-Godot_v4.3-stable_win64_vnGn8RCzFs.gif" /></p>
+<p>Your task is to make a level 2 scene with a player, obstacles, killzone and a door that goes to the win screen.</p>
+<p>In the first scene, make the door instead go to this new level 2 scene.</p>
+<h3 id="hints_2">Hints</h3>
+<ul>
+<li>
+<p>The method to use instead of changing from file in <code>door.gd</code>: <code>get_tree().change_scene_to_packed()</code></p>
+</li>
+<li>
+<p>The way to make an exported PackedScene variable in <code>door.gd</code>: <code>@export var next_scene : PackedScene</code></p>
+</li>
+</ul>
+<h2 id="how-to-submit-the-task">How to Submit the Task</h2>
+<p>The setup or template of the task is a <a href="https://github.com/GDG-IAU/Week-2-Task">Github Repository</a>. You must fork the repository, clone it to your device, work on it, push it, and then make a pull request.</p>
+<h3 id="1-forking-the-repository">1. Forking the Repository</h3>
+<p><img alt="" src="../../images/2025-02-18-17-36-27-opera_tWEVjvAnNg.gif" /></p>
+<p>Now you should have a version of this repository under your account.</p>
+<p><img alt="" src="../../images/2025-02-18-17-36-52-image.png" /></p>
+<h3 id="2-cloning-the-repository-and-adding-it-as-a-project">2. Cloning the Repository and Adding it as a Project</h3>
+<p>Go to the folder where you want to work on the task.</p>
+<p>Copy the link for your git repo.</p>
+<p><img alt="" src="../../images/2025-02-18-17-38-37-image.png" /></p>
+<p>Open the terminal for the folder where you want to work on the task.</p>
+<p><img alt="" src="../../images/2025-02-18-17-39-44-image.png" /></p>
+<p>type <code>git clone</code> and paste your repository link.</p>
+<p><img alt="" src="../../images/2025-02-18-17-40-33-image.png" /></p>
+<p>Press enter.</p>
+<p><img alt="" src="../../images/2025-02-18-17-40-49-image.png" /></p>
+<p>Now open Godot. In the project manager, click on "Import".</p>
+<p><img alt="" src="../../images/2025-02-18-17-41-26-image.png" /></p>
+<p><img alt="" src="../../images/2025-02-18-17-41-41-image.png" /></p>
+<p>Choose the folder you cloned using <code>git clone</code>.</p>
+<p><img alt="" src="../../images/2025-02-18-17-42-15-image.png" /></p>
+<p>Click "select this folder". Then "Import &amp; Edit".</p>
+<p><img alt="" src="../../images/2025-02-18-17-42-34-image.png" /></p>
+<p>Now click on "root.tscn" in the file system and begin working on the tasks. If it says there's a dependency error regarding "level_2.tscn", ignore it.</p>
+<p><img alt="" src="../../images/2025-02-18-17-45-05-image.png" /></p>
+<h3 id="3-after-youre-done-working-on-the-tasks">3. After You're Done Working on the Tasks</h3>
+<p>Go back to the terminal where the folder you cloned was. Enter into the folder in the terminal.</p>
+<p><img alt="" src="../../images/2025-02-18-17-46-02-image.png" /></p>
+<p>Enter <code>git add -A</code>.</p>
+<p><img alt="" src="../../images/2025-02-18-17-47-01-image.png" /></p>
+<p>Then <code>git commit -m "message"</code>. You can make the message whatever you want.</p>
+<p><img alt="" src="../../images/2025-02-18-17-47-31-image.png" /></p>
+<p>Finally <code>git push</code>.</p>
+<p><img alt="" src="../../images/2025-02-18-17-47-45-image.png" /></p>
+<h2 id="4-make-the-pull-request">4. Make the Pull Request</h2>
+<p>Back on your GitHub page for the repo. Click on "Pull Requests", and create a pull request. Be sure to name the PR with:</p>
+<blockquote>
+<p>Your Full Name - Week 2 Task</p>
+</blockquote>
+<p><img alt="" src="../../images/2025-02-18-17-50-11-opera_w8zDoBHBO7.gif" /></p>
+<p>You'll know the task is submitted when you go to the Pull Requests tab of the original repo and you see your name in it.</p>
+<p><img alt="" src="../../images/2025-02-18-17-50-54-image.png" /></p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/@GDG_IAU" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8l164.9-188.5L26.8 48h145.6l100.5 132.9zm-24.8 373.8h39.1L151.1 88h-42z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/company/gdg-at-iau" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.select", "content.code.copy", "navigation.tabs"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/katex@0/dist/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
